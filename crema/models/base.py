@@ -11,6 +11,7 @@ import librosa
 from ..version import version as version
 from .. import layers
 import keras as K
+import numpy as np
 
 
 class CremaModel(object):
@@ -57,10 +58,11 @@ class CremaModel(object):
 
         hidden_output_model = K.Model(inputs=self.model.input, outputs=self.last_hidden_layer.output)
         pred =  hidden_output_model.predict([self.pump.transform(audio_f=filename, y=y, sr=sr)[key] for key in self.model.input_names])
-
-        f = open("model_hidden_layer_pred", "w")
-        f.write(f"{pred}")
-        f.close()
+        np.savetxt('model_hidden_layer_pred.csv', pred[0], delimiter=',')
+        # f = open("model_hidden_layer_pred.csv", "w")
+        # print(f"len of preds: {len(pred[0])}")
+        # f.write(f"{pred}")
+        # f.close()
 
         return ann
 
@@ -120,7 +122,7 @@ class CremaModel(object):
                                                                'model.h5')))
         self.last_hidden_layer = self.model.layers[-2]  
        
-        f = open("model_hidden_layer", "w")
+        f = open("model_hidden_layer.txt", "w")
         f.write(f"{self.last_hidden_layer}")
         f.close()
         # And the version number
