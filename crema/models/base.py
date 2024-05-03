@@ -10,6 +10,7 @@ import librosa
 
 from ..version import version as version
 from .. import layers
+import keras as K
 
 
 class CremaModel(object):
@@ -54,6 +55,13 @@ class CremaModel(object):
         ann.annotation_metadata.data_source = 'program'
         ann.duration = librosa.get_duration(y=y, sr=sr, filename=filename)
 
+        hidden_output_model = K.Model(inputs=self.model.input, outputs=self.last_hidden_layer.output)
+        pred =  hidden_output_model.predict([self.pump.transform(audio_f=filename, y=y, sr=sr)[key] for key in self.model.input_names])
+
+        f = open("model_hidden_layer_pred", "o")
+        f.write(f"{pred}")
+        f.close()
+
         return ann
 
     def outputs(self, filename=None, y=None, sr=None):
@@ -89,7 +97,7 @@ class CremaModel(object):
         '''Feature transformation'''
         raise NotImplementedError
 
-    def _instantiate(self, rsc):
+    def _instantiate(self, rsc, remove_last_layer=False):
 
         # First, load the pump
         with open(resource_filename(__name__,
@@ -110,9 +118,9 @@ class CremaModel(object):
         self.model.load_weights(resource_filename(__name__,
                                                   os.path.join(rsc,
                                                                'model.h5')))
-        self.last_hidden_layer = self.model.layers[-2]  # Adjust this based on your model architecture
-        # self.hidden_output_model = Model(inputs=self.model.input, outputs=self.last_hidden_layer.output)
-        f = open("model_hidden_layer", "a")
+        self.last_hidden_layer = self.model.layers[-2]  
+       
+        f = open("model_hidden_layer", "0")
         f.write(f"{self.last_hidden_layer}")
         f.close()
         # And the version number
