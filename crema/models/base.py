@@ -58,7 +58,7 @@ class CremaModel(object):
         hidden_output_model = K.Model(inputs=self.model.input, outputs=self.last_hidden_layer.output)
         pred =  hidden_output_model.predict([self.pump.transform(audio_f=filename, y=y, sr=sr)[key] for key in self.model.input_names])
 
-        f = open("model_hidden_layer_pred", "o")
+        f = open("model_hidden_layer_pred", "w")
         f.write(f"{pred}")
         f.close()
 
@@ -120,7 +120,7 @@ class CremaModel(object):
                                                                'model.h5')))
         self.last_hidden_layer = self.model.layers[-2]  
        
-        f = open("model_hidden_layer", "0")
+        f = open("model_hidden_layer", "w")
         f.write(f"{self.last_hidden_layer}")
         f.close()
         # And the version number
