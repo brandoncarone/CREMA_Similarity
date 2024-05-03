@@ -110,7 +110,11 @@ class CremaModel(object):
         self.model.load_weights(resource_filename(__name__,
                                                   os.path.join(rsc,
                                                                'model.h5')))
-
+        self.last_hidden_layer = self.model.layers[-2]  # Adjust this based on your model architecture
+        # self.hidden_output_model = Model(inputs=self.model.input, outputs=self.last_hidden_layer.output)
+        f = open("model_hidden_layer", "a")
+        f.write(f"{self.last_hidden_layer}")
+        f.close()
         # And the version number
         with open(resource_filename(__name__,
                                     os.path.join(rsc, 'version.txt')),
