@@ -58,11 +58,10 @@ class CremaModel(object):
 
         hidden_output_model = K.Model(inputs=self.model.input, outputs=self.last_hidden_layer.output)
         pred =  hidden_output_model.predict([self.pump.transform(audio_f=filename, y=y, sr=sr)[key] for key in self.model.input_names])
-        np.savetxt('model_hidden_layer_pred.csv', pred[0], delimiter=',')
-        # f = open("model_hidden_layer_pred.csv", "w")
-        # print(f"len of preds: {len(pred[0])}")
-        # f.write(f"{pred}")
-        # f.close()
+        # print(f"shape of hidden preds: { pred[0].shape}")
+        filename = filename.replace("crema/ccm-experiment-stimuli/", '')
+        filename = filename.replace(".mp3", '')
+        np.savetxt(f"hidden_layer_pred_file_{filename}.csv", pred[0], delimiter=',')
 
         return ann
 
@@ -120,11 +119,9 @@ class CremaModel(object):
         self.model.load_weights(resource_filename(__name__,
                                                   os.path.join(rsc,
                                                                'model.h5')))
+        # save off the last hidden layer
         self.last_hidden_layer = self.model.layers[-2]  
        
-        f = open("model_hidden_layer.txt", "w")
-        f.write(f"{self.last_hidden_layer}")
-        f.close()
         # And the version number
         with open(resource_filename(__name__,
                                     os.path.join(rsc, 'version.txt')),
