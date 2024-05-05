@@ -58,8 +58,10 @@ class CremaModel(object):
 
         hidden_output_model = K.Model(inputs=self.model.input, outputs=self.last_hidden_layer.output)
         pred =  hidden_output_model.predict([self.pump.transform(audio_f=filename, y=y, sr=sr)[key] for key in self.model.input_names])
-        print(f"shape of hidden preds: { pred[0].shape}")
-        np.savetxt('model_hidden_layer_pred.csv', pred[0], delimiter=',')
+        # print(f"shape of hidden preds: { pred[0].shape}")
+        filename = filename.replace("crema/ccm-experiment-stimuli/", '')
+        filename = filename.replace(".mp3", '')
+        np.savetxt(f"hidden_layer_pred_file_{filename}.csv", pred[0], delimiter=',')
 
         return ann
 

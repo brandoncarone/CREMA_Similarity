@@ -3,7 +3,9 @@
 
 import argparse
 import sys
-
+from os import listdir
+import os
+from os.path import isfile, join
 import librosa
 import jams
 
@@ -14,7 +16,7 @@ __MODELS__ = []
 __all__ = ['analyze', 'main']
 
 
-def analyze(filename=None, y=None, sr=None):
+def analyze(folderpath=None, y=None, sr=None):
     '''Analyze a recording for all tasks.
 
     Parameters
@@ -52,28 +54,30 @@ def analyze(filename=None, y=None, sr=None):
     3   6.037188  4.086712    G:min    0.878656
     4  10.123900  1.486077   D#:maj    0.608746
     '''
+    filepaths = [f for f in listdir(folderpath) ]
+        # print(f"filepaths: {filepaths}")
+    for filepath in filepaths:
+        filename = os.path.join(folderpath, filepath)
+        _load_models()
 
-    _load_models()
+        jam = jams.JAMS()
+        # populate file metadata
 
-    jam = jams.JAMS()
-    # populate file metadata
+        jam.file_metadata.duration = librosa.get_duration(y=y, sr=sr, filename=filename)
 
-    jam.file_metadata.duration = librosa.get_duration(y=y, sr=sr,
-                                                      filename=filename)
+        for model in __MODELS__:
+                jam.annotations.append(model.predict(filename=filename, y=y, sr=sr))
 
-    for model in __MODELS__:
-        jam.annotations.append(model.predict(filename=filename, y=y, sr=sr))
-
-    return jam
+        # return jam
 
 
 def parse_args(args):  # pragma: no cover
 
     parser = argparse.ArgumentParser(description=__doc__)
 
-    parser.add_argument('filename',
+    parser.add_argument('folderpath',
                         type=str,
-                        help='Audio file to process')
+                        help='path to files to process')
 
     parser.add_argument('-o', '--output', dest='output',
                         type=argparse.FileType('w'),
@@ -85,7 +89,7 @@ def parse_args(args):  # pragma: no cover
 
 def main():  # pragma: no cover
     params = parse_args(sys.argv[1:])
-    jam = analyze(params.filename)
+    jam = analyze(params.folderpath)
     jam.save(params.output)
 
 
