@@ -1,4 +1,4 @@
-# Crema (Modified for CCM Course)
+# Crema (Modified for Computational Cognitive Modeling Course)
 
 **Convolutional and Recurrent Estimators for Music Analysis** - Edited Version
 
