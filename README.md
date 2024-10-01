@@ -56,9 +56,9 @@ jam = analyze(y=y, sr=sr)
 ## Project Modifications and Additions
 
 ### 1. Experiments and Stimuli
-- The **`experiments/`** folder contains the stimuli used for this project, including 48 versions of a common ii-V-I progression recorded on guitar and piano.
-- The reference recordings are Gmaj7 and Cmaj7, while the test stimuli include variations of the final chord in different conditions (e.g., root variations, out-of-key substitutions).
-- The experimental files were generated to assess how **human perception** of chord similarity compares to the model's interpretation.
+- The **`experiments/`** folder contains the stimuli that I recorded for this project, including 50 variations of a common ii-V-I progression recorded on guitar (in the key of C) and piano (in the key of G).
+- The reference recordings end in Gmaj7 and Cmaj7, while the test stimuli include variations of the final chord in different conditions (e.g., root variations, inversions, out-of-key substitutions, etc.).
+- The experimental files were created to assess how **human perception** of chord similarity compares to the model's interpretation.
 
 ### 2. Course Context
 This project was carried out as a final project for a **Computational Cognitive Modeling** course at New York University. The goal was to explore the intersection of **machine learning** and **human auditory perception**, using the CREMA chord recognition model as a basis for comparison against human participants' similarity judgments.
