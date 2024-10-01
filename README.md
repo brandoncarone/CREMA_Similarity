@@ -52,3 +52,30 @@ or if you have an audio buffer in memory, librosa-style:
 ```python
 jam = analyze(y=y, sr=sr)
 ```
+
+## Project Modifications and Additions
+
+### 1. Experiments and Stimuli
+- The **`experiments/`** folder contains the stimuli used for this project, including 48 versions of a common ii-V-I progression recorded on guitar and piano.
+- The reference recordings are Gmaj7 and Cmaj7, while the test stimuli include variations of the final chord in different conditions (e.g., root variations, out-of-key substitutions).
+- The experimental files were generated to assess how **human perception** of chord similarity compares to the model's interpretation.
+
+### 2. Course Context
+This project was carried out as a final project for a **Computational Cognitive Modeling** course at New York University. The goal was to explore the intersection of **machine learning** and **human auditory perception**, using the CREMA chord recognition model as a basis for comparison against human participants' similarity judgments.
+
+### 3. Custom Analysis Code
+- **Modified Analysis Pipeline**: We adapted the analysis scripts to batch process stimuli (instead of analyzing single files) and extract hidden feature representations from the model for each audio file.
+- **Experimental Data Collection**: Data on human similarity judgments were collected and stored in the **`experiments/`** directory, alongside the stimuli used in the study.
+- **Distance Metrics**: Custom Python scripts were added to calculate the **sum of absolute differences** and **Frobenius norm** between the CREMA model's feature representations and human judgments.
+
+---
+
+## Results Summary
+
+The results of the project show a generally inverse relationship between human similarity ratings and the CREMA model's distance metrics. Specifically:
+
+- The **CREMA model** provides more granular distinctions between chords, likely due to its ability to directly analyze spectrogram features.
+- Participants with higher **musical sophistication** showed greater discrimination between out-of-key and in-key chords, aligning more closely with the model's outputs.
+
+For further details on the results, please reach out to me at bcarone@nyu.edu.
+
