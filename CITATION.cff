@@ -1,8 +1,0 @@
-cff-version: 1.2.0
-message: "If you use this software, please cite it as below."
-authors:
-  - family-names: Holden, McFee, Sinkala
-    given-names: Gina, Brian, Sinkala
-title: "Fork and adaptation of Crema Model by Brian McFee"
-version: 1.0.0
-date-released: 2024-05-05
