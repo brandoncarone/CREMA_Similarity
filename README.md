@@ -16,7 +16,7 @@ This version of the CREMA project has been modified for a **Computational Cognit
 
 The original CREMA model, developed by McFee and Bello (2017), is a deep neural network built for musical chord recognition using convolutional and recurrent layers. It is designed to learn how to classify chords by being trained on complete songs paired with labeled chord annotations. This modified version aims to assess how human perception of chord similarity aligns with the internal feature representations of the CREMA model.
 
-**Reference Paper**: Carone, B. J., et al. *"Do You Hear What I Hear? Assessing the Alignment of Human Perception for Musical Chords with Deep Network Features Using the CREMA Chord Recognition Model"* [2024].  
+**Reference Paper**: Carone, B. J. *"Do You Hear What I Hear? Assessing the Alignment of Human Perception for Musical Chords with Deep Network Features Using the CREMA Chord Recognition Model"* [2024].  
 This project was implemented as a final project for a Computational Cognitive Modeling course.
 
 ---
